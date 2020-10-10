@@ -19,12 +19,15 @@ class AvatarAdmin(admin.ModelAdmin):
     list_per_page = 50
 
     def get_avatar(self, avatar_in):
-        context = dict({
-            'user': avatar_in.user,
-            'url': avatar_in.avatar.url,
-            'alt': six.text_type(avatar_in.user),
-            'size': 80,
-        })
+        try:
+            context = dict({
+                'user': avatar_in.user,
+                'url': avatar_in.avatar.url,
+                'alt': six.text_type(avatar_in.user),
+                'size': 80,
+            })
+         except:
+            context = {}
         return render_to_string('avatar/avatar_tag.html', context)
 
     get_avatar.short_description = _('Avatar')
